@@ -19,7 +19,7 @@ namespace GerenciaDespesa.View
             this.anterior = anterior;       
         }
 
-        public Tela Mostra()
+        public Tela mostra()
         {
             Console.WriteLine(">>> " + this.Nome + " <<<");
             Console.WriteLine();
@@ -124,10 +124,17 @@ namespace GerenciaDespesa.View
 
                     DateTime data = new DateTime(2014, 1, 10);
                     data = data.AddMonths(i);
+                    desp.Data = data;
+
+                    d.Adiciona(desp);
                 }
+
+                ctx.SaveChanges();
             }
 
-            return null;
+            Console.WriteLine("Dados gerados\n");
+            
+            return this.anterior;
         }
     }
 }
