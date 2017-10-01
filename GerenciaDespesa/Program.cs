@@ -10,6 +10,8 @@ namespace GerenciaDespesa
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("FALAE");
+            Console.ReadKey();
         }
     }
 }

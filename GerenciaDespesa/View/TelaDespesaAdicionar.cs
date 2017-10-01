@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using GerenciaDespesa.DB;
+using GerenciaDespesa.Model;
 
 namespace GerenciaDespesa.View
 {
@@ -93,9 +95,32 @@ namespace GerenciaDespesa.View
                 catch (FormatException e)
                 {
                     Console.WriteLine("Tipo incorreto!");
-                    continue
+                    continue;
                 }
+
+                if (tipo < 1 || tipo > 5)
+                {
+                    Console.WriteLine("Tipo incorreto!");
+                }
+
             }
+
+            using (GranaContext ctx = new GranaContext())
+            {
+                Despesa desp = new Despesa();
+                desp.Nome = nome;
+                desp.Valor = valor;
+                desp.Tipo = tipos[tipo];
+                desp.Data = data.GetValueOrDefault();
+
+                DespesaRepositorio d = new DespesaRepositorio(ctx);
+                d.Adiciona(desp);
+
+                ctx.SaveChanges();
+            }
+
+            Console.WriteLine("Despesa adicionada");
+            return this.anterior;
         }
     }
 }
